@@ -129,6 +129,58 @@ export default function PricingFunnel() {
         <p className="text-center text-sm text-gray-400 mt-10">
           所有价格均含税 · 企业定制方案请联系顾问 · 先报199元录播课即可享受升级抵扣
         </p>
+
+        {/* Detailed pricing breakdown */}
+        <div className="mt-16 bg-gray-50 rounded-3xl p-8">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-2">各板块详细定价</h3>
+          <p className="text-gray-500 text-sm text-center mb-8">每个赛道独立入口，支持按需选择</p>
+
+          {/* Header row */}
+          <div className="grid grid-cols-4 gap-3 mb-3 px-2">
+            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide">板块</div>
+            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">录播课</div>
+            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">私房课</div>
+            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">年度陪跑</div>
+          </div>
+
+          {/* Pricing rows */}
+          <div className="space-y-3">
+            {[
+              { name: 'AI视觉', icon: '🎨', recorded: '¥199', private: '¥16,800', annual: '—' },
+              { name: 'AI商业', icon: '💼', recorded: '¥3,999', private: '¥19,800/天', annual: '—' },
+              { name: 'AI编程', icon: '🤖', recorded: '¥4,999', private: '¥24,800', annual: '—' },
+              { name: 'OPC一人公司', icon: '🚀', recorded: '¥5,999', private: '¥49,800', annual: '—' },
+              { name: '全自动化交付', icon: '⚡', recorded: '—', private: '—', annual: '¥98,000/年' },
+            ].map((row, i) => (
+              <div
+                key={i}
+                className={`grid grid-cols-4 gap-3 items-center rounded-2xl px-4 py-4 transition-all duration-200 hover:bg-white hover:shadow-sm ${
+                  row.name === '全自动化交付' ? 'bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60' : 'bg-white border border-gray-100'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">{row.icon}</span>
+                  <span className={`font-semibold text-sm ${row.name === '全自动化交付' ? 'text-orange-700' : 'text-gray-800'}`}>
+                    {row.name}
+                  </span>
+                </div>
+                <div className={`text-center font-bold text-sm ${row.recorded === '—' ? 'text-gray-300' : 'text-gray-900'}`}>
+                  {row.recorded}
+                </div>
+                <div className={`text-center font-bold text-sm ${row.private === '—' ? 'text-gray-300' : 'text-gray-900'}`}>
+                  {row.private}
+                </div>
+                <div className={`text-center font-bold text-sm ${row.annual === '—' ? 'text-gray-300' : 'text-orange-600'}`}>
+                  {row.annual}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-gray-400 mt-6">
+            💡 录播199元课程可抵扣升级费用 · 私房课名额有限，请提前预约
+          </p>
+        </div>
       </div>
     </section>
   )

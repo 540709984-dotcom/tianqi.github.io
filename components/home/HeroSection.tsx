@@ -2,10 +2,10 @@
 import { useState, useEffect } from 'react'
 
 const stats = [
-  { label: '平均降低人力成本', value: '67%' },
-  { label: '温州案例节省/年', value: '120万+' },
-  { label: '年度陪跑服务', value: '98,000元' },
-  { label: '录播引流课', value: '199元起' },
+  { label: '温州案例节省人力', value: '50→30人' },
+  { label: '跨境GMV平均提升', value: '87%+' },
+  { label: '企业年度陪跑', value: '¥98,000' },
+  { label: '录播引流课入门', value: '¥199元' },
 ]
 
 export default function HeroSection() {
@@ -77,7 +77,7 @@ export default function HeroSection() {
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-          温州老板从50人团队→30人，省出了什么？我们来算给你看。
+          温州老板50人→30人，跨境电商GMV提升87%。我们来算给你看。
         </p>
 
         {/* CTA Buttons */}
