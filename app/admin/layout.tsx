@@ -6,8 +6,9 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase/client'
 
 const adminNavItems = [
-  { href: '/admin', label: '概览', icon: '📊', exact: true },
-  { href: '/admin/homepage', label: '首页配置', icon: '🏠' },
+  { href: '/admin', label: '概览', icon: '🏠', exact: true },
+  { href: '/admin/dashboard', label: '数据仪表盘', icon: '📊' },
+  { href: '/admin/homepage', label: '首页配置', icon: '⚙️' },
   { href: '/admin/courses', label: '课程管理', icon: '🎓' },
   { href: '/admin/instructors', label: '导师管理', icon: '👨‍🏫' },
   { href: '/admin/cases', label: '成功案例', icon: '🏆' },

@@ -129,3 +129,69 @@ insert into homepage_config (config_key, config_value, description) values
 ('stat_4_label', '录播引流课入门', '统计标签4'),
 ('footer_tagline', '跨境电商老板 & 中小工作室首选 · 不卖焦虑只卖结果', '底部小字')
 on conflict (config_key) do nothing;
+
+-- ===================================================
+-- 📊 数据统计埋点表（后台仪表盘）
+-- ===================================================
+
+-- 8. 页面访问记录表
+create table if not exists page_views (
+  id uuid default gen_random_uuid() primary key,
+  path text not null,                        -- 访问路径 e.g. '/', '/courses'
+  referrer text,                             -- 来源
+  user_agent text,                           -- UA
+  ip_hash text,                              -- IP哈希（隐私安全）
+  session_id text,                           -- 会话ID
+  user_id uuid references auth.users(id),    -- 登录用户（可为空）
+  created_at timestamptz default now()
+);
+
+-- 9. 用户注册记录表
+create table if not exists user_registrations (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users(id),
+  register_method text not null default 'email', -- email / wechat / phone
+  referrer_path text,                             -- 注册时来自哪个页面
+  created_at timestamptz default now()
+);
+
+-- 10. 用户登录记录表
+create table if not exists user_logins (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users(id),
+  login_method text not null default 'email',   -- email / wechat / phone
+  ip_hash text,
+  created_at timestamptz default now()
+);
+
+-- 11. 算力消耗记录表
+create table if not exists ai_usage_logs (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users(id),
+  model text not null default 'claude-sonnet-4-6-thinking',
+  prompt_tokens int not null default 0,
+  completion_tokens int not null default 0,
+  total_tokens int not null default 0,
+  cost_usd numeric(10, 6) not null default 0,  -- 美元成本
+  endpoint text,                                 -- API入口 e.g. '/api/chat'
+  created_at timestamptz default now()
+);
+
+-- RLS 策略
+alter table page_views enable row level security;
+alter table user_registrations enable row level security;
+alter table user_logins enable row level security;
+alter table ai_usage_logs enable row level security;
+
+-- 认证用户可写入（前台埋点）
+create policy "Auth insert page_views" on page_views for insert to authenticated with check (true);
+create policy "Anon insert page_views" on page_views for insert to anon with check (true);
+create policy "Auth insert user_registrations" on user_registrations for insert to authenticated with check (true);
+create policy "Auth insert user_logins" on user_logins for insert to authenticated with check (true);
+create policy "Auth insert ai_usage_logs" on ai_usage_logs for insert to authenticated with check (true);
+
+-- 管理员读取所有数据（service_role绕过RLS，或用admin角色）
+create policy "Admin read page_views" on page_views for select to authenticated using (true);
+create policy "Admin read user_registrations" on user_registrations for select to authenticated using (true);
+create policy "Admin read user_logins" on user_logins for select to authenticated using (true);
+create policy "Admin read ai_usage_logs" on ai_usage_logs for select to authenticated using (true);
