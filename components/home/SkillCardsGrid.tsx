@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 
 interface SkillCategory {
   id: string
@@ -71,6 +72,16 @@ const skillCategories: SkillCategory[] = [
     color: 'from-pink-500 to-rose-600',
     badge: '✨ 流量破圈',
   },
+  {
+    id: 'ai-ip-tool',
+    name: '星识OPC · AI自动化IP工具',
+    icon: '🌟',
+    tag: '疗愈IP变现',
+    kpi: '¥99/月起',
+    desc: '数字分身克隆·聊天式脚本·多模型视频合成·一键分发60+平台',
+    color: 'from-violet-500 to-purple-700',
+    badge: '🆕 全新上线',
+  },
 ]
 
 const detailContent: Record<string, DetailItem> = {
@@ -139,6 +150,19 @@ const detailContent: Record<string, DetailItem> = {
     ],
     cta: '199元立即开始',
   },
+  'ai-ip-tool': {
+    title: '星识OPC · AI自动化IP工具',
+    subtitle: '疗愈师专属 · 数字分身 → 视频 → 分发全链路',
+    price: '¥99/月起',
+    points: [
+      '数字分身克隆：3分钟视频 + 5分钟音频即可创建',
+      '聊天式脚本：用自然语言描述，AI生成专业疗愈脚本',
+      '多模型视频合成：Kling/Sora2/Seedance智能调度',
+      '合规护法盾：疗愈场景专属敏感词三级审查',
+      '一键分发60+平台，全平台数据追踪看板',
+    ],
+    cta: '查看详情',
+  },
 }
 
 export default function SkillCardsGrid() {
@@ -159,45 +183,70 @@ export default function SkillCardsGrid() {
           <p className="text-gray-500 text-lg">选择你的AI变现赛道，方法论+工具的组合拳</p>
         </div>
 
-        {/* Cards: 2 col on mobile, 3 col on md, then first 2 span on last row for symmetry */}
+        {/* Cards: 2 col on mobile, 3 col on md */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {skillCategories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => openModal(cat.id)}
-              onMouseEnter={() => setHoveredCard(cat.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-              className={`
-                group relative bg-white rounded-3xl border border-gray-100 p-6 text-left
-                transition-all duration-300 ease-out cursor-pointer
-                ${hoveredCard === cat.id
-                  ? 'shadow-2xl border-transparent -translate-y-1 scale-[1.02]'
-                  : 'shadow-sm hover:shadow-lg'}
-              `}
-            >
-              {/* Color accent bar */}
-              <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+          {skillCategories.map((cat) => {
+            if (cat.id === 'ai-ip-tool') {
+              return (
+                <Link
+                  key={cat.id}
+                  href="/ip-tool"
+                  className="group relative bg-white rounded-3xl border border-gray-100 p-6 text-left transition-all duration-300 ease-out cursor-pointer block shadow-sm hover:shadow-2xl hover:border-transparent hover:-translate-y-1 hover:scale-[1.02]"
+                >
+                  <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                  <div className={`inline-block px-2.5 py-1 rounded-full bg-gradient-to-r ${cat.color} text-white text-xs font-semibold mb-4 shadow-sm`}>
+                    {cat.badge}
+                  </div>
+                  <div className="text-4xl mb-3 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3">{cat.icon}</div>
+                  <h3 className="font-bold text-gray-900 text-base mb-1 leading-snug">{cat.name}</h3>
+                  <p className="text-xs text-gray-400 mb-4 leading-relaxed">{cat.desc}</p>
+                  <div className={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${cat.color}`}>{cat.kpi}</div>
+                  <div className="mt-1 text-xs text-gray-400 font-medium">{cat.tag}</div>
+                  <div className="mt-4 flex items-center gap-1 text-xs text-gray-400 group-hover:text-violet-600 transition-colors duration-200">
+                    <span>进入工具</span>
+                    <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                  </div>
+                </Link>
+              )
+            }
+            return (
+              <button
+                key={cat.id}
+                onClick={() => openModal(cat.id)}
+                onMouseEnter={() => setHoveredCard(cat.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                className={`
+                  group relative bg-white rounded-3xl border border-gray-100 p-6 text-left
+                  transition-all duration-300 ease-out cursor-pointer
+                  ${hoveredCard === cat.id
+                    ? 'shadow-2xl border-transparent -translate-y-1 scale-[1.02]'
+                    : 'shadow-sm hover:shadow-lg'}
+                `}
+              >
+                {/* Color accent bar */}
+                <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
-              {/* Badge */}
-              <div className={`inline-block px-2.5 py-1 rounded-full bg-gradient-to-r ${cat.color} text-white text-xs font-semibold mb-4 shadow-sm`}>
-                {cat.badge}
-              </div>
+                {/* Badge */}
+                <div className={`inline-block px-2.5 py-1 rounded-full bg-gradient-to-r ${cat.color} text-white text-xs font-semibold mb-4 shadow-sm`}>
+                  {cat.badge}
+                </div>
 
-              <div className="text-4xl mb-3 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3">{cat.icon}</div>
-              <h3 className="font-bold text-gray-900 text-base mb-1 leading-snug">{cat.name}</h3>
-              <p className="text-xs text-gray-400 mb-4 leading-relaxed">{cat.desc}</p>
+                <div className="text-4xl mb-3 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3">{cat.icon}</div>
+                <h3 className="font-bold text-gray-900 text-base mb-1 leading-snug">{cat.name}</h3>
+                <p className="text-xs text-gray-400 mb-4 leading-relaxed">{cat.desc}</p>
 
-              <div className={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${cat.color}`}>
-                {cat.kpi}
-              </div>
-              <div className="mt-1 text-xs text-gray-400 font-medium">{cat.tag}</div>
+                <div className={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${cat.color}`}>
+                  {cat.kpi}
+                </div>
+                <div className="mt-1 text-xs text-gray-400 font-medium">{cat.tag}</div>
 
-              <div className="mt-4 flex items-center gap-1 text-xs text-gray-400 group-hover:text-emerald-600 transition-colors duration-200">
-                <span>查看详情</span>
-                <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-              </div>
-            </button>
-          ))}
+                <div className="mt-4 flex items-center gap-1 text-xs text-gray-400 group-hover:text-emerald-600 transition-colors duration-200">
+                  <span>查看详情</span>
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                </div>
+              </button>
+            )
+          })}
         </div>
       </section>
 
