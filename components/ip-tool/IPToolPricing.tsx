@@ -12,8 +12,8 @@ const PLANS = [
     badge: '',
     badgeColor: '',
     color: 'from-violet-400 to-purple-500',
-    borderColor: 'border-gray-200',
-    bgColor: 'bg-white',
+    borderColor: 'border-white/10',
+    bgColor: 'bg-white/[0.03]',
     desc: '入门疗愈师',
     features: [
       '每月20分钟视频配额',
@@ -24,7 +24,7 @@ const PLANS = [
       '抖音/小红书发布',
     ],
     cta: '开始成长',
-    ctaStyle: 'bg-gray-900 text-white hover:bg-gray-800',
+    ctaStyle: 'bg-white/10 text-white hover:bg-white/20 border border-white/10',
   },
   {
     id: 'pro',
@@ -34,10 +34,10 @@ const PLANS = [
     quota: '60分钟视频',
     unitCost: '¥4.98/分钟',
     badge: '🔥 最受欢迎',
-    badgeColor: 'bg-violet-600 text-white',
-    color: 'from-violet-500 to-purple-700',
-    borderColor: 'border-violet-400',
-    bgColor: 'bg-gradient-to-b from-violet-50 to-white',
+    badgeColor: 'bg-gradient-to-r from-violet-500 to-cyan-500 text-white',
+    color: 'from-violet-500 to-cyan-500',
+    borderColor: 'border-violet-500/30',
+    bgColor: 'bg-gradient-to-b from-violet-500/10 to-transparent',
     desc: '成熟疗愈师',
     features: [
       '每月60分钟视频配额',
@@ -50,7 +50,7 @@ const PLANS = [
       '知识聚宝盆（无限存储）',
     ],
     cta: '立即升级',
-    ctaStyle: 'bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-400 hover:to-purple-500 shadow-lg shadow-violet-200',
+    ctaStyle: 'bg-gradient-to-r from-violet-500 to-cyan-500 text-white hover:from-violet-400 hover:to-cyan-400 shadow-lg shadow-violet-500/20',
   },
   {
     id: 'team',
@@ -61,9 +61,9 @@ const PLANS = [
     unitCost: '¥6.66/分钟',
     badge: '',
     badgeColor: '',
-    color: 'from-indigo-500 to-blue-600',
-    borderColor: 'border-gray-200',
-    bgColor: 'bg-white',
+    color: 'from-indigo-400 to-blue-500',
+    borderColor: 'border-white/10',
+    bgColor: 'bg-white/[0.03]',
     desc: '培训机构/团体',
     features: [
       '每月150分钟视频配额',
@@ -76,7 +76,7 @@ const PLANS = [
       '专属IP孵化顾问',
     ],
     cta: '联系我们',
-    ctaStyle: 'bg-gray-900 text-white hover:bg-gray-800',
+    ctaStyle: 'bg-white/10 text-white hover:bg-white/20 border border-white/10',
   },
 ]
 
@@ -93,9 +93,9 @@ export default function IPToolPricing() {
   return (
     <section id="pricing" className="py-20 px-6 max-w-6xl mx-auto">
       <div className="text-center mb-14">
-        <p className="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-3">Pricing</p>
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">订阅制 + 积分制</h2>
-        <p className="text-gray-500 text-lg">按需付费，毛利率约50%，你的内容资产永久保留</p>
+        <p className="text-sm font-semibold tracking-widest text-violet-400 uppercase mb-3">Pricing</p>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">订阅制 + 积分制</h2>
+        <p className="text-slate-400 text-lg">按需付费，毛利率约50%，你的内容资产永久保留</p>
       </div>
 
       {/* 套餐卡片 */}
@@ -108,7 +108,7 @@ export default function IPToolPricing() {
             className={`
               relative rounded-3xl border-2 p-8 transition-all duration-300
               ${plan.borderColor} ${plan.bgColor}
-              ${hoveredPlan === plan.id ? 'shadow-2xl -translate-y-1' : 'shadow-sm'}
+              ${hoveredPlan === plan.id ? 'shadow-2xl shadow-violet-500/10 -translate-y-1' : 'shadow-sm'}
             `}
           >
             {plan.badge && (
@@ -118,23 +118,23 @@ export default function IPToolPricing() {
             )}
 
             <div className="mb-6">
-              <h3 className="font-bold text-gray-900 text-xl mb-1">{plan.name}</h3>
-              <p className="text-gray-400 text-sm mb-4">{plan.desc}</p>
+              <h3 className="font-bold text-white text-xl mb-1">{plan.name}</h3>
+              <p className="text-slate-500 text-sm mb-4">{plan.desc}</p>
               <div className="flex items-end gap-1">
                 <span className={`text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r ${plan.color}`}>
                   {plan.price}
                 </span>
-                <span className="text-gray-400 text-sm mb-1">{plan.period}</span>
+                <span className="text-slate-500 text-sm mb-1">{plan.period}</span>
               </div>
               <div className="mt-2 flex gap-3">
-                <span className="text-xs text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">{plan.quota}</span>
-                <span className="text-xs text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full">{plan.unitCost}</span>
+                <span className="text-xs text-slate-400 bg-white/5 px-2.5 py-1 rounded-full">{plan.quota}</span>
+                <span className="text-xs text-slate-500 bg-white/[0.03] px-2.5 py-1 rounded-full">{plan.unitCost}</span>
               </div>
             </div>
 
             <ul className="space-y-3 mb-8">
               {plan.features.map((f) => (
-                <li key={f} className="flex items-center gap-3 text-sm text-gray-600">
+                <li key={f} className="flex items-center gap-3 text-sm text-slate-400">
                   <div className={`w-4 h-4 rounded-full bg-gradient-to-br ${plan.color} flex items-center justify-center flex-shrink-0`}>
                     <span className="text-white text-[10px]">✓</span>
                   </div>
@@ -143,22 +143,27 @@ export default function IPToolPricing() {
               ))}
             </ul>
 
-            <button className={`w-full py-3.5 rounded-full font-semibold text-sm transition-all duration-200 active:scale-95 ${plan.ctaStyle}`}>
+            <a
+              href="https://sekotalk.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`block w-full py-3.5 rounded-full font-semibold text-sm text-center transition-all duration-200 active:scale-95 ${plan.ctaStyle}`}
+            >
               {plan.cta}
-            </button>
+            </a>
           </div>
         ))}
       </div>
 
       {/* 增值服务 */}
-      <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
-        <h3 className="font-bold text-gray-900 text-xl mb-6 text-center">增值服务</h3>
+      <div className="bg-white/[0.03] rounded-3xl border border-white/5 p-8">
+        <h3 className="font-bold text-white text-xl mb-6 text-center">增值服务</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {ADD_ONS.map((item) => (
-            <div key={item.name} className="text-center p-4 rounded-2xl bg-gray-50 hover:bg-violet-50 transition-colors duration-200 cursor-pointer group">
-              <div className="font-bold text-gray-900 text-sm mb-1 group-hover:text-violet-700 transition-colors">{item.name}</div>
-              <div className="text-violet-600 font-black text-lg mb-1">{item.price}</div>
-              <div className="text-gray-400 text-xs">{item.note}</div>
+            <div key={item.name} className="text-center p-4 rounded-2xl bg-white/[0.03] hover:bg-violet-500/10 transition-colors duration-200 cursor-pointer group border border-white/5 hover:border-violet-500/20">
+              <div className="font-bold text-white text-sm mb-1 group-hover:text-violet-300 transition-colors">{item.name}</div>
+              <div className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400 font-black text-lg mb-1">{item.price}</div>
+              <div className="text-slate-500 text-xs">{item.note}</div>
             </div>
           ))}
         </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase/client'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import type { User } from '@supabase/supabase-js'
 
@@ -13,6 +13,12 @@ export default function AuthButton() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   useEffect(() => {
+    // Skip if Supabase is not configured
+    if (!isSupabaseConfigured || !supabase) {
+      setLoading(false)
+      return
+    }
+
     // Get initial user
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user)
@@ -30,7 +36,9 @@ export default function AuthButton() {
   }, [])
 
   async function handleSignOut() {
-    await supabase.auth.signOut()
+    if (supabase) {
+      await supabase.auth.signOut()
+    }
     setDropdownOpen(false)
     router.refresh()
   }

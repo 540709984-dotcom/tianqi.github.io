@@ -12,24 +12,24 @@ export default function IPToolCTA() {
     <section className="py-20 px-6">
       <div className="max-w-4xl mx-auto">
         {/* MVP进度 */}
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 mb-8">
+        <div className="bg-white/[0.03] rounded-3xl border border-white/5 p-8 mb-8">
           <div className="text-center mb-8">
-            <p className="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-2">MVP Roadmap</p>
-            <h3 className="text-2xl font-bold text-gray-900">6周完成MVP交付</h3>
+            <p className="text-sm font-semibold tracking-widest text-violet-400 uppercase mb-2">MVP Roadmap</p>
+            <h3 className="text-2xl font-bold text-white">6周完成MVP交付</h3>
           </div>
           <div className="space-y-4">
             {MILESTONES.map((m, i) => (
-              <div key={i} className={`flex items-start gap-4 p-4 rounded-2xl transition-colors ${m.status === 'active' ? 'bg-violet-50 border border-violet-100' : 'bg-gray-50'}`}>
-                <div className={`flex-shrink-0 w-14 h-8 rounded-xl flex items-center justify-center text-xs font-bold ${m.status === 'active' ? 'bg-violet-600 text-white' : 'bg-gray-200 text-gray-500'}`}>
+              <div key={i} className={`flex items-start gap-4 p-4 rounded-2xl transition-colors ${m.status === 'active' ? 'bg-violet-500/10 border border-violet-500/20' : 'bg-white/[0.02]'}`}>
+                <div className={`flex-shrink-0 w-14 h-8 rounded-xl flex items-center justify-center text-xs font-bold ${m.status === 'active' ? 'bg-gradient-to-r from-violet-500 to-cyan-500 text-white' : 'bg-white/10 text-slate-500'}`}>
                   {m.week}
                 </div>
                 <div>
-                  <div className={`font-semibold text-sm ${m.status === 'active' ? 'text-violet-900' : 'text-gray-700'}`}>{m.title}</div>
-                  <div className="text-xs text-gray-400 mt-0.5">{m.desc}</div>
+                  <div className={`font-semibold text-sm ${m.status === 'active' ? 'text-violet-300' : 'text-slate-400'}`}>{m.title}</div>
+                  <div className="text-xs text-slate-600 mt-0.5">{m.desc}</div>
                 </div>
                 {m.status === 'active' && (
-                  <div className="ml-auto flex-shrink-0 flex items-center gap-1 text-xs text-violet-600 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+                  <div className="ml-auto flex-shrink-0 flex items-center gap-1 text-xs text-violet-400 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
                     开发中
                   </div>
                 )}
@@ -68,8 +68,10 @@ export default function IPToolCTA() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="#pricing"
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold text-base hover:from-violet-400 hover:to-purple-500 transition-all duration-200 shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 hover:-translate-y-0.5 active:scale-95"
+                href="https://sekotalk.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 text-white font-bold text-base hover:from-violet-400 hover:to-cyan-400 transition-all duration-200 shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 hover:-translate-y-0.5 active:scale-95"
               >
                 免费试用 →
               </a>

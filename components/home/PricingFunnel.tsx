@@ -1,187 +1,140 @@
-'use client'
+'use client';
 
 interface PricingTier {
-  name: string
-  price: string
-  desc: string
-  tag: string
-  highlight: boolean
+  name: string;
+  price: string;
+  period: string;
+  desc: string;
+  features: string[];
+  highlight: boolean;
+  cta: string;
 }
 
-const tiers: PricingTier[] = [
+const TIERS: PricingTier[] = [
   {
     name: '录播引流课',
     price: '¥199',
-    desc: '工具认知 + 基础SOP跑通',
-    tag: '入门首选',
+    period: '一次性',
+    desc: '入门首选，快速了解AI自动化商业全貌',
+    features: ['5小时录播课程', 'AI工具使用指南', '社群答疑30天', '1次AI诊断'],
     highlight: false,
+    cta: '立即报名',
   },
   {
     name: '年度轻会员',
-    price: '¥9,800/年',
-    desc: 'AI工具前沿更新 + 圈子人脉 + 社群答疑',
-    tag: '性价比之选',
+    price: '¥9,800',
+    period: '/年',
+    desc: '持续学习+实操陪跑，AI落地不走弯路',
+    features: ['全部录播课程', '月度直播答疑', '专属社群1年', '4次1对1诊断', '工具折扣权益'],
     highlight: false,
-  },
-  {
-    name: '线下标准实训',
-    price: '¥10,000/天',
-    desc: '小班案例实战，通用AI工具链，可落地方案',
-    tag: '进阶实战',
-    highlight: false,
-  },
-  {
-    name: '线下私房定制',
-    price: '¥19,800/天',
-    desc: '特定企业业务流现场拆解重构，高度定制',
-    tag: '深度定制',
-    highlight: true,
+    cta: '加入会员',
   },
   {
     name: '企业年度陪跑',
-    price: '¥98,000/年',
-    desc: '1v1业务诊断 + 定制工作流 + 全年技术兜底',
-    tag: '🔥 最高变现',
+    price: '¥98,000',
+    period: '/年',
+    desc: '最高变现，全流程AI改造+持续陪跑',
+    features: ['全部课程+直播', '专属顾问1对1', '定制AI方案', '季度复盘4次', '工具全量授权', '优先新功能体验'],
     highlight: true,
+    cta: '预约咨询',
   },
-]
+  {
+    name: '线下私房定制',
+    price: '¥19,800',
+    period: '/天',
+    desc: '深度定制，面对面解决你的AI落地难题',
+    features: ['1天线下实训', '定制课程内容', '现场方案设计', '30天线上跟进'],
+    highlight: false,
+    cta: '预约档期',
+  },
+];
 
 export default function PricingFunnel() {
   return (
-    <section className="px-6 py-20 bg-white">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <p className="text-sm font-semibold tracking-widest text-indigo-600 uppercase mb-3">Pricing</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-            从199元到98,000元
-          </h2>
-          <p className="text-gray-500 text-lg">找到属于你的起点，每一步都有清晰的升级路径</p>
-        </div>
+    <section id="pricing" className="relative px-6 py-20">
+      {/* 背景光晕 */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-purple-600/5 rounded-full blur-[150px] pointer-events-none" />
 
-        {/* Funnel arrow indicator */}
-        <div className="flex items-center justify-center gap-2 mb-10">
-          <span className="text-xs text-gray-400 font-medium">入门</span>
-          <div className="flex-1 max-w-xs h-px bg-gradient-to-r from-gray-200 via-indigo-300 to-amber-500" />
-          <span className="text-xs text-gray-400 font-medium">顶配</span>
-        </div>
+      {/* 标题区 */}
+      <div className="text-center mb-14">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <span className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
+            定价体系
+          </span>
+        </h2>
+        <p className="text-lg text-white/30">从入门到陪跑，选择适合你的AI落地路径</p>
+      </div>
 
-        {/* Pricing cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          {tiers.map((tier, i) => (
-            <div
-              key={i}
-              className={`
-                relative rounded-3xl p-6 flex flex-col transition-all duration-300
-                ${tier.highlight
-                  ? 'scale-105 shadow-2xl'
-                  : 'bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5'}
-              `}
-              style={
-                tier.highlight
-                  ? {
-                      background: 'white',
-                      border: '2px solid transparent',
-                      backgroundClip: 'padding-box',
-                      boxShadow: '0 0 0 2px transparent',
-                      backgroundImage: 'linear-gradient(white, white), linear-gradient(135deg, #f59e0b, #f97316, #ec4899)',
-                      backgroundOrigin: 'border-box',
-                    }
-                  : {}
-              }
-            >
-              {/* Recommended badge for highlighted */}
-              {tier.highlight && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold shadow-lg whitespace-nowrap">
-                  推荐
-                </div>
-              )}
-
-              {/* Step indicator */}
-              <div className="flex items-center gap-2 mb-4">
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${tier.highlight ? 'bg-gradient-to-br from-amber-500 to-orange-600' : 'bg-gray-200 text-gray-500'}`}>
-                  {i + 1}
-                </div>
-                <span className={`text-xs font-semibold ${tier.highlight ? 'text-orange-600' : 'text-gray-400'}`}>
-                  {tier.tag}
-                </span>
+      {/* 定价卡片 */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {TIERS.map((tier) => (
+          <div
+            key={tier.name}
+            className={`relative rounded-2xl p-7 flex flex-col transition-all duration-500 ${
+              tier.highlight
+                ? 'bg-gradient-to-b from-purple-600/10 to-cyan-500/5 border border-purple-500/30 shadow-[0_0_40px_rgba(139,92,246,0.15)]'
+                : 'glass-card'
+            }`}
+          >
+            {/* 推荐标签 */}
+            {tier.highlight && (
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 text-xs font-semibold text-white">
+                最受欢迎
               </div>
+            )}
 
-              <h3 className="font-bold text-gray-900 text-base mb-2 leading-snug">{tier.name}</h3>
-              <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-1">{tier.desc}</p>
+            {/* 名称 */}
+            <h3 className={`text-lg font-semibold mb-2 ${tier.highlight ? 'text-white' : 'text-white/80'}`}>
+              {tier.name}
+            </h3>
 
-              <div className={`text-2xl font-black tracking-tight ${tier.highlight ? 'text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600' : 'text-gray-900'}`}>
-                {tier.price}
-              </div>
-
-              <button className={`mt-4 w-full py-2.5 rounded-full text-sm font-semibold transition-all duration-200 active:scale-95 ${
+            {/* 价格 */}
+            <div className="mb-4">
+              <span className={`text-4xl font-bold ${
                 tier.highlight
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-white hover:opacity-90 shadow-md shadow-amber-200'
-                  : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100'
+                  ? 'bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent'
+                  : 'text-white/90'
               }`}>
-                {tier.highlight ? '立即咨询' : '了解详情'}
-              </button>
+                {tier.price}
+              </span>
+              <span className="text-sm text-white/30 ml-1">{tier.period}</span>
             </div>
-          ))}
-        </div>
 
-        {/* Bottom note */}
-        <p className="text-center text-sm text-gray-400 mt-10">
-          所有价格均含税 · 企业定制方案请联系顾问 · 先报199元录播课即可享受升级抵扣
-        </p>
+            {/* 描述 */}
+            <p className="text-sm text-white/35 mb-6 leading-relaxed">{tier.desc}</p>
 
-        {/* Detailed pricing breakdown */}
-        <div className="mt-16 bg-gray-50 rounded-3xl p-8">
-          <h3 className="text-2xl font-bold text-gray-900 text-center mb-2">各板块详细定价</h3>
-          <p className="text-gray-500 text-sm text-center mb-8">每个赛道独立入口，支持按需选择</p>
+            {/* 功能列表 */}
+            <ul className="flex-1 space-y-3 mb-7">
+              {tier.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-white/45">
+                  <span className={`mt-0.5 ${tier.highlight ? 'text-purple-400' : 'text-cyan-500/60'}`}>✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
 
-          {/* Header row */}
-          <div className="grid grid-cols-4 gap-3 mb-3 px-2">
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide">板块</div>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">录播课</div>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">私房课</div>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide text-center">年度陪跑</div>
-          </div>
-
-          {/* Pricing rows */}
-          <div className="space-y-3">
-            {[
-              { name: 'AI视觉', icon: '🎨', recorded: '¥199', private: '¥16,800', annual: '—' },
-              { name: 'AI商业', icon: '💼', recorded: '¥3,999', private: '¥19,800/天', annual: '—' },
-              { name: 'AI编程', icon: '🤖', recorded: '¥4,999', private: '¥24,800', annual: '—' },
-              { name: 'OPC一人公司', icon: '🚀', recorded: '¥5,999', private: '¥49,800', annual: '—' },
-              { name: '全自动化交付', icon: '⚡', recorded: '—', private: '—', annual: '¥98,000/年' },
-            ].map((row, i) => (
-              <div
-                key={i}
-                className={`grid grid-cols-4 gap-3 items-center rounded-2xl px-4 py-4 transition-all duration-200 hover:bg-white hover:shadow-sm ${
-                  row.name === '全自动化交付' ? 'bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60' : 'bg-white border border-gray-100'
-                }`}
+            {/* CTA按钮 */}
+            {tier.highlight ? (
+              <a
+                href="https://xhslink.com/m/1Ebrd5Ef9y2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full block py-3 rounded-xl font-medium text-sm text-center bg-gradient-to-r from-purple-600 to-cyan-500 text-white hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300"
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">{row.icon}</span>
-                  <span className={`font-semibold text-sm ${row.name === '全自动化交付' ? 'text-orange-700' : 'text-gray-800'}`}>
-                    {row.name}
-                  </span>
-                </div>
-                <div className={`text-center font-bold text-sm ${row.recorded === '—' ? 'text-gray-300' : 'text-gray-900'}`}>
-                  {row.recorded}
-                </div>
-                <div className={`text-center font-bold text-sm ${row.private === '—' ? 'text-gray-300' : 'text-gray-900'}`}>
-                  {row.private}
-                </div>
-                <div className={`text-center font-bold text-sm ${row.annual === '—' ? 'text-gray-300' : 'text-orange-600'}`}>
-                  {row.annual}
-                </div>
-              </div>
-            ))}
+                {tier.cta}
+              </a>
+            ) : (
+              <a
+                href="/images/qr/group-qr.png"
+                target="_blank"
+                className="w-full block py-3 rounded-xl font-medium text-sm text-center border border-white/10 text-white/50 hover:border-purple-500/30 hover:text-white/70 transition-all duration-300"
+              >
+                {tier.cta}
+              </a>
+            )}
           </div>
-
-          <p className="text-center text-xs text-gray-400 mt-6">
-            💡 录播199元课程可抵扣升级费用 · 私房课名额有限，请提前预约
-          </p>
-        </div>
+        ))}
       </div>
     </section>
-  )
+  );
 }

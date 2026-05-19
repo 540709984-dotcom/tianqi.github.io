@@ -58,12 +58,12 @@ export default function IPToolTemplates() {
   const [hovered, setHovered] = useState<string | null>(null)
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-white to-[#f5f5f7]">
+    <section className="py-20 px-6 bg-[#0a0a1a]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
-          <p className="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-3">Healing Templates</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">疗愈场景专属模板库</h2>
-          <p className="text-gray-500 text-lg">MVP阶段5大场景模板，零门槛开始创作</p>
+          <p className="text-sm font-semibold tracking-widest text-violet-400 uppercase mb-3">Healing Templates</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">疗愈场景专属模板库</h2>
+          <p className="text-slate-400 text-lg">MVP阶段5大场景模板，零门槛开始创作</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
@@ -73,7 +73,7 @@ export default function IPToolTemplates() {
               onMouseEnter={() => setHovered(t.id)}
               onMouseLeave={() => setHovered(null)}
               className={`relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 ${
-                hovered === t.id ? 'shadow-2xl -translate-y-1 scale-[1.03]' : 'shadow-md'
+                hovered === t.id ? 'shadow-2xl shadow-violet-500/20 -translate-y-1 scale-[1.03]' : 'shadow-md'
               }`}
             >
               {/* 背景渐变 */}
@@ -103,8 +103,8 @@ export default function IPToolTemplates() {
           ))}
         </div>
 
-        <p className="text-center text-gray-400 text-sm mt-8">
-          更多模板持续更新中 · 支持自定义场景模板 · <span className="text-violet-600 cursor-pointer hover:underline">提交你的场景需求 →</span>
+        <p className="text-center text-slate-500 text-sm mt-8">
+          更多模板持续更新中 · 支持自定义场景模板 · <span className="text-violet-400 cursor-pointer hover:underline">提交你的场景需求 →</span>
         </p>
       </div>
     </section>

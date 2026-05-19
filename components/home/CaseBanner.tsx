@@ -1,93 +1,73 @@
-'use client'
+'use client';
 
-interface CaseItem {
-  emoji: string
-  title: string
-  metric: string
-  desc: string
-  tag: string
-  color: string
+interface CaseData {
+  industry: string;
+  metric: string;
+  value: string;
+  desc: string;
 }
 
-const cases: CaseItem[] = [
+const CASES: CaseData[] = [
   {
-    emoji: '🏭',
-    title: '温州制造业老板',
-    metric: '50人 → 30人',
-    desc: '通过AI重构业务流，裁掉1/3冗余人力，节省人力成本超120万/年',
-    tag: '降本增效',
-    color: 'from-amber-500 to-orange-600',
+    industry: '制造业',
+    metric: '人力缩减',
+    value: '1/3',
+    desc: '50人→30人，年省120万+',
   },
   {
-    emoji: '📦',
-    title: '跨境电商卖家',
-    metric: 'GMV +87%',
-    desc: '用AI+铁三角销售体系，不扩招人员，年GMV从200万增至374万',
-    tag: 'AI商业落地',
-    color: 'from-blue-500 to-indigo-600',
+    industry: '跨境电商',
+    metric: 'GMV提升',
+    value: '87%',
+    desc: '200万→374万，AI驱动增长',
   },
   {
-    emoji: '💼',
-    title: '企业咨询顾问',
-    metric: '成交 1000万',
-    desc: '学员用AI+铁三角方法论，完成单笔1000万大单签约',
-    tag: '销售爆破',
-    color: 'from-emerald-500 to-teal-600',
+    industry: '企业咨询',
+    metric: '单笔成交',
+    value: '1000万',
+    desc: 'AI+铁三角方法论，大单突破',
   },
-]
+];
 
 export default function CaseBanner() {
   return (
-    <section className="py-20 px-6 bg-white">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <p className="text-sm font-semibold tracking-widest text-orange-600 uppercase mb-3">Real Cases</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-            真实案例 · 可验证数据
-          </h2>
-          <p className="text-gray-500 text-lg">每一个数字背后，都是真实跑通的商业路径</p>
-        </div>
+    <section className="relative px-6 py-20 overflow-hidden">
+      {/* 背景微光 */}
+      <div className="absolute inset-0 particle-bg opacity-50 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
 
-        {/* Three-column case cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {cases.map((c, i) => (
-            <div
-              key={i}
-              className="group bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
-            >
-              {/* Gradient icon area */}
-              <div className={`bg-gradient-to-br ${c.color} p-8 flex flex-col items-center justify-center`}>
-                <div className="text-5xl mb-3">{c.emoji}</div>
-                <h3 className="text-white font-bold text-lg text-center">{c.title}</h3>
-              </div>
+      {/* 标题区 */}
+      <div className="text-center mb-14">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <span className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
+            真实案例
+          </span>
+        </h2>
+        <p className="text-lg text-white/30">不卖焦虑只卖结果，数据说话</p>
+      </div>
 
-              {/* Card body */}
-              <div className="p-6 flex flex-col flex-1">
-                {/* Metric — big bold */}
-                <div className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r ${c.color} mb-3`}>
-                  {c.metric}
-                </div>
+      {/* 案例卡片 */}
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        {CASES.map((c) => (
+          <div key={c.industry} className="glass-card rounded-2xl p-8 text-center group">
+            {/* 行业标签 */}
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-medium text-purple-300/80 bg-purple-500/10 border border-purple-500/20 mb-5">
+              {c.industry}
+            </span>
 
-                {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-4">{c.desc}</p>
+            {/* 指标名 */}
+            <p className="text-sm text-white/30 mb-3">{c.metric}</p>
 
-                {/* Tag */}
-                <div className="mt-auto">
-                  <span className={`inline-block px-3 py-1 rounded-full bg-gradient-to-r ${c.color} text-white text-xs font-semibold`}>
-                    {c.tag}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            {/* 大号渐变数字 */}
+            <p className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent glow-text">
+              {c.value}
+            </p>
 
-        {/* Bottom note */}
-        <p className="text-center text-sm text-gray-400 mt-10">
-          以上案例均为真实学员数据 · 可联系顾问索取完整案例报告
-        </p>
+            {/* 描述 */}
+            <p className="text-sm text-white/35 leading-relaxed">{c.desc}</p>
+          </div>
+        ))}
       </div>
     </section>
-  )
+  );
 }

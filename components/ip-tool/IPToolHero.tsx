@@ -104,8 +104,10 @@ export default function IPToolHero() {
         {/* CTA 按钮 */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="#pricing"
-            className="px-8 py-4 rounded-full bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold text-base hover:from-violet-400 hover:to-purple-500 transition-all duration-200 shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 hover:-translate-y-0.5 active:scale-95"
+            href="https://sekotalk.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-4 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 text-white font-bold text-base hover:from-violet-400 hover:to-cyan-400 transition-all duration-200 shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 hover:-translate-y-0.5 active:scale-95"
           >
             免费试用 →
           </a>

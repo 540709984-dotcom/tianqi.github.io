@@ -1,53 +1,135 @@
-import { NextResponse } from 'next/server'
-import OpenAI from 'openai'
+import { NextRequest, NextResponse } from 'next/server';
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  baseURL: process.env.OPENAI_BASE_URL,
-})
+const DASHSCOPE_API_KEY = process.env.DASHSCOPE_API_KEY || '';
+const DASHSCOPE_BASE_URL = process.env.DASHSCOPE_BASE_URL || '';
+const DASHSCOPE_MODEL = process.env.DASHSCOPE_MODEL || 'qwen-plus';
 
-export async function POST(request: Request) {
+// Force Node.js runtime
+export const runtime = 'nodejs';
+
+// System prompt for 果冻OPC AI assistant
+const SYSTEM_PROMPT = `你是"果冻OPC"的AI助手，一个专业的AI自动化商业顾问。
+
+你的核心身份：
+- 你代表"果冻OPC"品牌，专注于帮助中小企业和跨境电商老板用AI降本增效
+- 你的语气专业但亲切，像一个懂行的朋友在给建议
+- 你擅长用具体数字说话，不卖焦虑只卖结果
+
+你的知识范围：
+1. AI全自动化交付：用Hermes+n8n等工具实现业务流程自动化
+2. OPC一人公司模式：一个人+AI工具=一个团队的运作方式
+3. AI商业落地：跨境电商、制造业等行业的AI应用案例
+4. AI编程：用AI辅助编程提升开发效率
+5. AI视觉：AI图像生成、视频制作等创意工具
+6. 数字分身IP：星识OPC工具，疗愈师专属AI自动化IP
+
+核心案例数据（可引用）：
+- 温州制造业老板：50人→30人，裁掉1/3冗余人力，年省120万+
+- 跨境电商卖家：GMV从200万增至374万，提升87%
+- 企业咨询顾问：用AI+铁三角方法论，完成单笔1000万大单
+
+定价体系（可引用）：
+- 录播引流课：¥199（入门首选）
+- 年度轻会员：¥9,800/年
+- 线下标准实训：¥10,000/天
+- 线下私房定制：¥19,800/天
+- 企业年度陪跑：¥98,000/年（最高变现）
+
+回答原则：
+- 先给结论，再展开说明
+- 用具体数字和案例佐证
+- 不确定的信息明确告知
+- 引导用户到合适的付费层级
+- 简洁有力，不啰嗦`;
+
+export async function POST(req: NextRequest) {
   try {
-    const { message } = await request.json()
-    const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || 'claude-sonnet-4-6-thinking',
-      max_tokens: 1024,
-      messages: [
-        {
-          role: 'system',
-          content: `你是灵犀OPC的智能助手，专门帮用户找到最适合他们的AI课程。
+    if (!DASHSCOPE_API_KEY || !DASHSCOPE_BASE_URL) {
+      return NextResponse.json(
+        { error: '阿里云百炼配置缺失', details: { hasApiKey: !!DASHSCOPE_API_KEY, hasBaseUrl: !!DASHSCOPE_BASE_URL } },
+        { status: 500 }
+      );
+    }
 
-灵犀OPC五大板块：
-1. 全自动化AI产品交付（98,000元/年）：企业年度陪跑，定制工作流，全年技术兜底
-2. OPC一人AI公司（录播5,999 / 私教49,800）：找商业模式，AI替代团队，建增长系统
-3. AI商业（录播3,999 / 私房19,800）：华为体系+AI落地，降本增效实战
-4. AI编程（录播4,999 / 私房24,800）：OpenClaw+n8n组合，不需要会写代码
-5. AI视觉（录播199 / 私房16,800）：Lovart.ai+即梦/可灵，工具+变现+品牌
+    const body = await req.json();
+    const message = body.message || body.query || '';
+    const sessionId = body.sessionId || 'default-session';
 
-核心理念：AI只是效率杠杆，赚钱核心是行业认知和资源。不卖焦虑，卖解决方案。
+    if (!message) {
+      return NextResponse.json({ error: '请提供message参数' }, { status: 400 });
+    }
 
-当用户描述痛点或需求时：
-- 先理解他的核心问题
-- 推荐最适合的1-2个板块
-- 说明推荐理由（为什么这个板块能解决他的问题）
-- 提供对应的价格和入口
+    console.log('[chat] Calling DashScope OpenAI-compatible:', message.substring(0, 50));
 
-如果用户说"人力成本高"→ 推荐全自动化或AI商业
-如果用户说"想赚钱"→ 先问清楚他的能力，再推荐
-如果用户说"不会写代码"→ 推荐AI编程（OpenClaw+n8n不需要写代码）
-如果用户说"想做视频/设计"→ 推荐AI视觉
-如果用户说"想建一人公司"→ 推荐OPC一人AI公司
+    // Build messages array with conversation history if provided
+    const messages: Array<{ role: string; content: string }> = [
+      { role: 'system', content: SYSTEM_PROMPT },
+    ];
 
-回复要简短有力，不要超过200字，用中文回复。
-推荐板块时在最后加一行：「👉 [板块名称](/courses/slug)」格式。`
+    // Add conversation history if provided
+    if (body.history && Array.isArray(body.history)) {
+      for (const msg of body.history) {
+        if (msg.role === 'user' || msg.role === 'assistant') {
+          messages.push({ role: msg.role, content: msg.content });
+        }
+      }
+    }
+
+    messages.push({ role: 'user', content: message });
+
+    // Call DashScope OpenAI-compatible API
+    const response = await fetch(`${DASHSCOPE_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DASHSCOPE_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: DASHSCOPE_MODEL,
+        messages,
+        temperature: 0.7,
+        top_p: 0.9,
+        max_tokens: 2048,
+        // Enable knowledge base search if available
+        extra_body: {
+          enable_search: true,
         },
-        { role: 'user', content: message }
-      ],
-    })
-    const reply = completion.choices[0]?.message?.content || '抱歉，我暂时无法回答。'
-    return NextResponse.json({ reply })
-  } catch (error) {
-    console.error('Chat API error:', error)
-    return NextResponse.json({ error: '无法连接AI服务' }, { status: 500 })
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[chat] DashScope API error:', response.status, errorText);
+      return NextResponse.json(
+        { error: `阿里云API异常 (${response.status})`, details: errorText },
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json();
+    console.log('[chat] Response keys:', Object.keys(data));
+
+    // Extract reply from OpenAI-compatible response format
+    let replyText = '';
+
+    if (data.choices && data.choices.length > 0) {
+      const choice = data.choices[0];
+      replyText = choice.message?.content || choice.text || '';
+    }
+
+    if (!replyText) {
+      console.warn('[chat] Empty reply. Raw:', JSON.stringify(data).substring(0, 500));
+      replyText = '抱歉，我暂时无法回答这个问题，请稍后再试或联系人工客服。';
+    }
+
+    console.log('[chat] Q:', message.substring(0, 30), '| A:', replyText.substring(0, 60));
+    return NextResponse.json({ reply: replyText, sessionId });
+
+  } catch (error: any) {
+    console.error('[chat] Error:', error.message || error);
+    return NextResponse.json(
+      { error: '聊天服务异常', details: error.message || String(error) },
+      { status: 500 }
+    );
   }
 }

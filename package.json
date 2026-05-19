@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@alicloud/chatbot20220408": "^2.5.2",
+    "@alicloud/openapi-client": "^0.4.15",
+    "@alicloud/tea-util": "^1.4.11",
     "@base-ui/react": "^1.3.0",
     "@hookform/resolvers": "^5.2.2",
     "@supabase/supabase-js": "^2.100.0",

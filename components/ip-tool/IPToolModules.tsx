@@ -7,8 +7,8 @@ const MODULES = [
     icon: '🪞',
     name: 'IP定位镜',
     color: 'from-violet-500 to-purple-600',
-    bgLight: 'from-violet-50 to-purple-50',
-    tagColor: 'bg-violet-100 text-violet-700',
+    bgDark: 'from-violet-500/10 to-purple-500/10',
+    tagColor: 'bg-violet-500/20 text-violet-300',
     tag: '智能分析',
     desc: '用AI帮你看清自己的IP方向，赛道差异化定位，30天内容日历自动生成',
     features: [
@@ -22,8 +22,8 @@ const MODULES = [
     icon: '🎭',
     name: '数字分身炉',
     color: 'from-indigo-500 to-blue-600',
-    bgLight: 'from-indigo-50 to-blue-50',
-    tagColor: 'bg-indigo-100 text-indigo-700',
+    bgDark: 'from-indigo-500/10 to-blue-500/10',
+    tagColor: 'bg-indigo-500/20 text-indigo-300',
     tag: '形象克隆',
     desc: '上传3分钟视频+5分钟音频，AI复刻你的形象与声纹，打造1:1数字分身',
     features: [
@@ -37,8 +37,8 @@ const MODULES = [
     icon: '🎬',
     name: '内容流水线',
     color: 'from-pink-500 to-rose-600',
-    bgLight: 'from-pink-50 to-rose-50',
-    tagColor: 'bg-pink-100 text-pink-700',
+    bgDark: 'from-pink-500/10 to-rose-500/10',
+    tagColor: 'bg-pink-500/20 text-pink-300',
     tag: '全链路生成',
     desc: '聊天式自然语言描述 → 完整脚本 → AI多模型视频合成 → 智能剪辑成片',
     features: [
@@ -52,8 +52,8 @@ const MODULES = [
     icon: '🛡️',
     name: '合规护法盾',
     color: 'from-emerald-500 to-teal-600',
-    bgLight: 'from-emerald-50 to-teal-50',
-    tagColor: 'bg-emerald-100 text-emerald-700',
+    bgDark: 'from-emerald-500/10 to-teal-500/10',
+    tagColor: 'bg-emerald-500/20 text-emerald-300',
     tag: '风险防护',
     desc: '发布前自动检测敏感词、医疗宣称风险，三级审查确保合规安全',
     features: [
@@ -67,8 +67,8 @@ const MODULES = [
     icon: '💎',
     name: '知识聚宝盆',
     color: 'from-amber-500 to-orange-600',
-    bgLight: 'from-amber-50 to-orange-50',
-    tagColor: 'bg-amber-100 text-amber-700',
+    bgDark: 'from-amber-500/10 to-orange-500/10',
+    tagColor: 'bg-amber-500/20 text-amber-300',
     tag: '资产沉淀',
     desc: '你创作的每一个脚本、每一个数字形象都沉淀为资产，持续学习你的风格',
     features: [
@@ -82,8 +82,8 @@ const MODULES = [
     icon: '🚀',
     name: '一键分发器',
     color: 'from-cyan-500 to-sky-600',
-    bgLight: 'from-cyan-50 to-sky-50',
-    tagColor: 'bg-cyan-100 text-cyan-700',
+    bgDark: 'from-cyan-500/10 to-sky-500/10',
+    tagColor: 'bg-cyan-500/20 text-cyan-300',
     tag: '60+平台',
     desc: '抖音/小红书/B站/视频号等60+平台一键发布，自动裁剪比例、生成封面、优化标签',
     features: [
@@ -100,9 +100,9 @@ export default function IPToolModules() {
   return (
     <section id="modules" className="py-20 px-6 max-w-6xl mx-auto">
       <div className="text-center mb-14">
-        <p className="text-sm font-semibold tracking-widest text-violet-600 uppercase mb-3">Core Modules</p>
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">六大核心模块</h2>
-        <p className="text-gray-500 text-lg">数字人克隆 → 脚本生成 → 视频合成 → 合规发布，全链路闭环</p>
+        <p className="text-sm font-semibold tracking-widest text-violet-400 uppercase mb-3">Core Modules</p>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">六大核心模块</h2>
+        <p className="text-slate-400 text-lg">数字人克隆 → 脚本生成 → 视频合成 → 合规发布，全链路闭环</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -111,10 +111,10 @@ export default function IPToolModules() {
             key={mod.id}
             onClick={() => setActive(active === mod.id ? null : mod.id)}
             className={`
-              group relative bg-white rounded-3xl border text-left p-6 transition-all duration-300 ease-out cursor-pointer
+              group relative bg-white/[0.03] rounded-3xl border text-left p-6 transition-all duration-300 ease-out cursor-pointer
               ${active === mod.id
-                ? 'border-transparent shadow-2xl -translate-y-1 scale-[1.02]'
-                : 'border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5'}
+                ? 'border-white/20 shadow-2xl shadow-violet-500/10 -translate-y-1 scale-[1.02]'
+                : 'border-white/5 hover:border-white/15 hover:shadow-lg hover:shadow-violet-500/5 hover:-translate-y-0.5'}
             `}
           >
             {/* 顶部渐变条 */}
@@ -127,25 +127,25 @@ export default function IPToolModules() {
             <div className="text-3xl mb-3 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3">
               {mod.icon}
             </div>
-            <h3 className="font-bold text-gray-900 text-base mb-2">{mod.name}</h3>
-            <p className="text-xs text-gray-400 leading-relaxed mb-4">{mod.desc}</p>
+            <h3 className="font-bold text-white text-base mb-2">{mod.name}</h3>
+            <p className="text-xs text-slate-500 leading-relaxed mb-4">{mod.desc}</p>
 
             {/* 展开详情 */}
             {active === mod.id && (
-              <div className={`mt-2 p-4 rounded-2xl bg-gradient-to-br ${mod.bgLight} space-y-3`}>
+              <div className={`mt-2 p-4 rounded-2xl bg-gradient-to-br ${mod.bgDark} border border-white/5 space-y-3`}>
                 {mod.features.map((f) => (
                   <div key={f.label} className="flex items-start gap-3">
                     <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-br ${mod.color} flex-shrink-0 mt-1.5`} />
                     <div>
-                      <span className="text-xs font-semibold text-gray-700">{f.label}：</span>
-                      <span className="text-xs text-gray-500">{f.detail}</span>
+                      <span className="text-xs font-semibold text-slate-300">{f.label}：</span>
+                      <span className="text-xs text-slate-500">{f.detail}</span>
                     </div>
                   </div>
                 ))}
               </div>
             )}
 
-            <div className="mt-4 flex items-center gap-1 text-xs text-gray-400 group-hover:text-violet-600 transition-colors duration-200">
+            <div className="mt-4 flex items-center gap-1 text-xs text-slate-600 group-hover:text-violet-400 transition-colors duration-200">
               <span>{active === mod.id ? '收起' : '展开详情'}</span>
               <span className={`transition-transform duration-200 ${active === mod.id ? 'rotate-90' : 'group-hover:translate-x-1'}`}>→</span>
             </div>

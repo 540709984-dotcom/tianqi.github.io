@@ -18,6 +18,11 @@ export type Course = {
   }[]
   deliverables: string[]  // 学完能做什么
   targetUser: string   // 目标用户画像
+  mentor: {            // 负责导师
+    name: string
+    title: string
+    avatar: string      // emoji or icon
+  }
   cta: string          // CTA按钮文字
 }
 
@@ -48,6 +53,11 @@ export const coursesData: Course[] = [
       'ROI计算报告（投资回报分析）',
     ],
     targetUser: '25-40岁跨境电商老板 & 中小工作室创始人，团队10人以上，有明确降本增效需求',
+    mentor: {
+      name: '辰天启导师',
+      title: '工信部第一批AI导师 · AI基因锁哲学创始人 · 20万IP博主',
+      avatar: '🌟',
+    },
     cta: '预约企业诊断（免费）',
   },
   {
@@ -77,6 +87,11 @@ export const coursesData: Course[] = [
       '月营收增长路径图',
     ],
     targetUser: '35-45岁创业者/企业主，有一定商业经验，想建立一人公司或改造现有业务',
+    mentor: {
+      name: '辰天启导师',
+      title: '工信部第一批AI导师 · AI基因锁哲学创始人 · 20万IP博主',
+      avatar: '🌟',
+    },
     cta: '立即加入',
   },
   {
@@ -107,6 +122,11 @@ export const coursesData: Course[] = [
       'OpenClaw商业自动化工作流配置文件',
     ],
     targetUser: '中小企业主、创业公司CEO，35-45岁，有团队但人效低、成本高，看到别人用AI赚钱自己不知从何下手',
+    mentor: {
+      name: '皮特导师',
+      title: '原华某为老总 · 擅长商业架构开发',
+      avatar: '💼',
+    },
     cta: '了解详情',
   },
   {
@@ -136,6 +156,11 @@ export const coursesData: Course[] = [
       'OpenClaw+n8n工作流模板库',
     ],
     targetUser: '企业主/运营/创业者，不会写代码，想用AI工具解决80%的商业自动化需求',
+    mentor: {
+      name: '老夏导师',
+      title: '原谷歌工程师',
+      avatar: '🤖',
+    },
     cta: '立即开课',
   },
   {
@@ -165,6 +190,11 @@ export const coursesData: Course[] = [
       '工具测评联盟推广渠道（被动收入）',
     ],
     targetUser: '设计师/电商运营/内容创作者/自由职业者，想用AI视觉增加收入或降低设计成本',
+    mentor: {
+      name: '老刘导师',
+      title: '深耕10年的跨境电商老板',
+      avatar: '🎨',
+    },
     cta: '199元立即开始',
   },
 ]
